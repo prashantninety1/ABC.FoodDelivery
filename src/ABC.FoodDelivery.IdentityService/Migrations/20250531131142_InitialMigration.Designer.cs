@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ABC.FoodDelivery.IdentityService.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20250531094157_InitialMigration")]
+    [Migration("20250531131142_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace ABC.FoodDelivery.IdentityService.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("ABC.FoodDelivery.IdentityService.Entities.User", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()

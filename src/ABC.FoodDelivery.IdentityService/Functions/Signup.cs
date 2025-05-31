@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ABC.FoodDelivery.IdentityService.Functions
 {
-    public class SignupFunction(UserService userService)
+    public class Signup(UserService userService)
     {
         private readonly UserService _userService = userService;
 

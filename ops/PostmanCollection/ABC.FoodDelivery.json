@@ -1,0 +1,118 @@
+{
+  "info": {
+    "name": "ABC.FoodDelivery",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "adminBaseUrl", "value": "http://localhost:7001" },
+    { "key": "customerBaseUrl", "value": "http://localhost:7041" },
+    { "key": "deliveryBaseUrl", "value": "http://localhost:7051" },
+    { "key": "identityBaseUrl", "value": "http://localhost:7061" },
+    { "key": "orderBaseUrl", "value": "http://localhost:7071" },
+    { "key": "restaurantBaseUrl", "value": "http://localhost:7081" }
+  ],
+  "item": [
+    {
+      "name": "AdminService",
+      "item": [
+        {
+          "name": "HttpTrigger1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{adminBaseUrl}}/api/HttpTrigger1",
+              "host": ["{{adminBaseUrl}}"],
+              "path": ["api", "HttpTrigger1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CustomerService",
+      "item": [
+        {
+          "name": "HttpTrigger1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{customerBaseUrl}}/api/HttpTrigger1",
+              "host": ["{{customerBaseUrl}}"],
+              "path": ["api", "HttpTrigger1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DeliveryService",
+      "item": [
+        {
+          "name": "HttpTrigger1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{deliveryBaseUrl}}/api/HttpTrigger1",
+              "host": ["{{deliveryBaseUrl}}"],
+              "path": ["api", "HttpTrigger1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "IdentityService",
+      "item": [
+        {
+          "name": "HttpTrigger1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{identityBaseUrl}}/api/HttpTrigger1",
+              "host": ["{{identityBaseUrl}}"],
+              "path": ["api", "HttpTrigger1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "OrderService",
+      "item": [
+        {
+          "name": "HttpTrigger1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{orderBaseUrl}}/api/HttpTrigger1",
+              "host": ["{{orderBaseUrl}}"],
+              "path": ["api", "HttpTrigger1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "RestaurantService",
+      "item": [
+        {
+          "name": "HttpTrigger1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{restaurantBaseUrl}}/api/HttpTrigger1",
+              "host": ["{{restaurantBaseUrl}}"],
+              "path": ["api", "HttpTrigger1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

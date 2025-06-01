@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ABC.FoodDelivery.RestaurantService.Repositories
 {
-    public class RestaurantRepository(RestaurantDbContext context) : IRestaurantRepository
+    public class RestaurantRepository(ApplicationDbContext context) : IRestaurantRepository
     {
-        private readonly RestaurantDbContext _context = context;
+        private readonly ApplicationDbContext _context = context;
 
         public async Task<Restaurant?> GetRestaurantByIdAsync(Guid restaurantId)
         {

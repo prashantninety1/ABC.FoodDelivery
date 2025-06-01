@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ABC.FoodDelivery.IdentityService.Data
 {
-    public class IdentityDbContext(DbContextOptions<IdentityDbContext> options) : DbContext(options)
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
         public DbSet<User> Users { get; set; }
 

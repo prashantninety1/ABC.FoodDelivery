@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ABC.FoodDelivery.IdentityService.Repositories
 {
-    public class UserRepository(IdentityDbContext context) : IUserRepository
+    public class UserRepository(ApplicationDbContext context) : IUserRepository
     {
-        private readonly IdentityDbContext _context = context;
+        private readonly ApplicationDbContext _context = context;
 
         public async Task<User?> GetUserByEmailAsync(string email)
         {

@@ -8,12 +8,12 @@ using Microsoft.Extensions.Logging;
 
 namespace ABC.FoodDelivery.RestaurantService.Functions
 {
-    public class RegisterRestaurantFunction(Service restaurantService)
+    public class RestaurantFunctions(Service restaurantService)
     {
         private readonly Service _restaurantService = restaurantService;
 
         [Function("RegisterRestaurant")]
-        public async Task<IActionResult> Run(
+        public async Task<IActionResult> RegisterRestaurant(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "restaurants/register")] HttpRequest req,
             ILogger log)
         {

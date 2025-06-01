@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ABC.FoodDelivery.RestaurantService.Data
 {
-    public class RestaurantDbContext(DbContextOptions<RestaurantDbContext> options) : DbContext(options)
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }

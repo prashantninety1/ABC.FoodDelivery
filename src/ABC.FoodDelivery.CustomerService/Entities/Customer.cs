@@ -11,6 +11,5 @@ namespace ABC.FoodDelivery.CustomerService.Entities
         public DateTime CreatedAt { get; set; } // Account creation timestamp
         public DateTime UpdatedAt { get; set; }
         public required ICollection<Address> Addresses { get; set; } // One-to-Many Relationship
-        public required ICollection<Order> Orders { get; set; } // One-to-Many Relationship
     }
 }

@@ -8,13 +8,13 @@ using Microsoft.Extensions.Logging;
 
 namespace ABC.FoodDelivery.IdentityService.Functions
 {
-    public class Signin(UserService userService, ITokenService tokenService)
+    public class IdentityFunctions(UserService userService, ITokenService tokenService)
     {
         private readonly UserService _userService = userService;
         private readonly ITokenService _tokenService = tokenService;
 
         [Function("Signin")]
-        public async Task<IActionResult> Run(
+        public async Task<IActionResult> Signin(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "user/signin")] HttpRequest req,
             ILogger log)
         {
@@ -44,6 +44,34 @@ namespace ABC.FoodDelivery.IdentityService.Functions
             catch (Exception ex)
             {
                 // log.LogError($"Error during login: {ex.Message}");
+                return new BadRequestObjectResult(new { message = ex.Message });
+            }
+        }
+
+        [Function("Signup")]
+        public async Task<IActionResult> Signup(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "user/signup")] HttpRequest req,
+            ILogger log)
+        {
+            //log.LogInformation("Processing user registration...");
+
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var userDto = JsonSerializer.Deserialize<UserDto>(requestBody);
+
+            if (userDto == null)
+            {
+                return new BadRequestObjectResult("Invalid request payload.");
+            }
+
+
+            try
+            {
+                var result = await _userService.RegisterUserAsync(userDto);
+                return new OkObjectResult(result);
+            }
+            catch (Exception ex)
+            {
+                //log.LogError($"Error registering user: {ex.Message}");
                 return new BadRequestObjectResult(new { message = ex.Message });
             }
         }

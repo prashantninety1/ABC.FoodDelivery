@@ -54,7 +54,6 @@ namespace ABC.FoodDelivery.CustomerService.Functions
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 Addresses = new List<Address>(), // Assuming Address is a complex type, initialize as needed
-                Orders = new List<Order>() // Assuming Order is a complex type, initialize as needed
             };
 
             var createdCustomer = await _customerService.CreateCustomerAsync(customer);

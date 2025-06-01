@@ -42,41 +42,41 @@ namespace ABC.FoodDelivery.CartService.Functions
             });
         }
 
-        // Add Item to Cart
-        [Function("AddCartItem")]
-        public async Task<IActionResult> AddCartItem(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "cart/{cartId}/items")] HttpRequest req,
-            Guid cartId)
-        {
-            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var cartItemDto = JsonSerializer.Deserialize<CartItemDto>(requestBody);
+        // // Add Item to Cart
+        // [Function("AddCartItem")]
+        // public async Task<IActionResult> AddCartItem(
+        //     [HttpTrigger(AuthorizationLevel.Function, "post", Route = "cart/{cartId}/items")] HttpRequest req,
+        //     Guid cartId)
+        // {
+        //     var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+        //     var cartItemDto = JsonSerializer.Deserialize<CartItemDto>(requestBody);
 
-            var addedItem = await _cartItemService.AddCartItemAsync(cartId, cartItemDto);
-            return new CreatedResult($"cart/{cartId}/items/{addedItem.Id}", addedItem);
-        }
+        //     var addedItem = await _cartItemService.AddCartItemAsync(cartId, cartItemDto);
+        //     return new CreatedResult($"cart/{cartId}/items/{addedItem.Id}", addedItem);
+        // }
 
-        // Update Cart Item Quantity
-        [Function("UpdateCartItem")]
-        public async Task<IActionResult> UpdateCartItem(
-            [HttpTrigger(AuthorizationLevel.Function, "put", Route = "cart/items/{cartItemId}")] HttpRequest req,
-            Guid cartItemId)
-        {
-            var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var updateData = JsonSerializer.Deserialize<UpdateCartItemDto>(requestBody);
+        // // Update Cart Item Quantity
+        // [Function("UpdateCartItem")]
+        // public async Task<IActionResult> UpdateCartItem(
+        //     [HttpTrigger(AuthorizationLevel.Function, "put", Route = "cart/items/{cartItemId}")] HttpRequest req,
+        //     Guid cartItemId)
+        // {
+        //     var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+        //     var updateData = JsonSerializer.Deserialize<UpdateCartItemDto>(requestBody);
 
-            await _cartItemService.UpdateCartItemAsync(cartItemId, updateData.Quantity);
-            return new NoContentResult();
-        }
+        //     await _cartItemService.UpdateCartItemAsync(cartItemId, updateData.Quantity);
+        //     return new NoContentResult();
+        // }
 
-        // Remove Item from Cart
-        [Function("RemoveCartItem")]
-        public async Task<IActionResult> RemoveCartItem(
-            [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "cart/items/{cartItemId}")] HttpRequest req,
-            Guid cartItemId)
-        {
-            await _cartItemService.RemoveCartItemAsync(cartItemId);
-            return new NoContentResult();
-        }
+        // // Remove Item from Cart
+        // [Function("RemoveCartItem")]
+        // public async Task<IActionResult> RemoveCartItem(
+        //     [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "cart/items/{cartItemId}")] HttpRequest req,
+        //     Guid cartItemId)
+        // {
+        //     await _cartItemService.RemoveCartItemAsync(cartItemId);
+        //     return new NoContentResult();
+        // }
 
         // Checkout Cart
         [Function("CheckoutCart")]

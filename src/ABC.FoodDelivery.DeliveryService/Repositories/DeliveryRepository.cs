@@ -1,20 +1,53 @@
-public class DeliveryRepository
+using ABC.FoodDelivery.DeliveryService.Data;
+using ABC.FoodDelivery.DeliveryService.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace ABC.FoodDelivery.DeliveryService.Repositories
 {
-    private readonly DeliveryDbContext _context;
-
-    public DeliveryRepository(DeliveryDbContext context)
+    public class DeliveryRepository : IDeliveryRepository
     {
-        _context = context;
-    }
+        private readonly ApplicationDbContext _context;
 
-    public async Task AssignDeliveryAsync(DeliveryAssignment assignment)
-    {
-        await _context.DeliveryAssignments.AddAsync(assignment);
-        await _context.SaveChangesAsync();
-    }
+        public DeliveryRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-    public async Task<DeliveryAssignment> GetDeliveryAssignmentByOrderIdAsync(Guid orderId)
-    {
-        return await _context.DeliveryAssignments.FirstOrDefaultAsync(d => d.OrderId == orderId);
+        public async Task<Delivery> GetDeliveryByOrderIdAsync(Guid orderId)
+        {
+            return await _context.Deliveries.FirstOrDefaultAsync(d => d.OrderId == orderId);
+        }
+
+        public async Task<List<Delivery>> GetDeliveriesByDriverIdAsync(Guid driverId)
+        {
+            return await _context.Deliveries.Where(d => d.DriverId == driverId).ToListAsync();
+        }
+
+        public async Task<Delivery> AssignDeliveryAsync(Delivery delivery)
+        {
+            _context.Deliveries.Add(delivery);
+            await _context.SaveChangesAsync();
+            return delivery;
+        }
+
+        public async Task UpdateDeliveryStatusAsync(Guid orderId, string status, DateTime? deliveryTime)
+        {
+            var delivery = await GetDeliveryByOrderIdAsync(orderId);
+            if (delivery == null) return;
+
+            delivery.Status = status;
+            delivery.DeliveryTime = deliveryTime;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task CancelDeliveryAsync(Guid orderId)
+        {
+            var delivery = await GetDeliveryByOrderIdAsync(orderId);
+            if (delivery != null)
+            {
+                _context.Deliveries.Remove(delivery);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

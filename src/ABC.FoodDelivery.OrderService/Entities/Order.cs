@@ -1,16 +1,16 @@
-public class Order
+namespace ABC.FoodDelivery.OrderService.Entities
 {
-    [Key]
-    public Guid OrderId { get; set; }
+    public class Order
+    {
+        public Guid Id { get; set; }
+        public Guid CustomerId { get; set; }
+        public Guid RestaurantId { get; set; } // Reference to the restaurant
+        public decimal TotalAmount { get; set; }
+        public string Status { get; set; } // Pending, Confirmed, Preparing, PickedUp, Delivered
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
-    [Required]
-    public Guid CustomerId { get; set; } // FK from CustomerService
-
-    [Required]
-    public Guid RestaurantId { get; set; } // FK from RestaurantService
-
-    public OrderStatus Status { get; set; } // Enum
-
-    public decimal TotalAmount { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        // Navigation Properties
+        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+    }
 }

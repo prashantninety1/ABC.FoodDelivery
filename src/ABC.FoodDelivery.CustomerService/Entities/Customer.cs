@@ -1,13 +1,16 @@
-public class Customer
+namespace ABC.FoodDelivery.CustomerService.Entities
 {
-    [Key]
-    public Guid CustomerId { get; set; }
-
-    [Required]
-    public Guid UserId { get; set; } // FK from IdentityService
-
-    public string Address { get; set; }
-    public string Phone { get; set; }
-
-    public List<Order> Orders { get; set; } // Navigation Property
+    public class Customer
+    {
+        public Guid Id { get; set; }  // Unique Identifier
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string Email { get; set; } // Unique
+        public required string PhoneNumber { get; set; } // Unique
+        public DateTime DateOfBirth { get; set; }
+        public DateTime CreatedAt { get; set; } // Account creation timestamp
+        public DateTime UpdatedAt { get; set; }
+        public required ICollection<Address> Addresses { get; set; } // One-to-Many Relationship
+        public required ICollection<Order> Orders { get; set; } // One-to-Many Relationship
+    }
 }

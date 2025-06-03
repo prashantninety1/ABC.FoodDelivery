@@ -1,7 +1,5 @@
-using System.Text.Json;
 using ABC.FoodDelivery.IdentityService.DTOs;
 using ABC.FoodDelivery.IdentityService.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
@@ -15,22 +13,18 @@ namespace ABC.FoodDelivery.IdentityService.Functions
 
         [Function("Signin")]
         public async Task<IActionResult> Signin(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "user/signin")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "user/signin")] SigninDto req,
             ILogger log)
         {
             // log.LogInformation("Processing user login...");
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var signinDto = JsonSerializer.Deserialize<SigninDto>(requestBody);
-
-            if (signinDto == null)
+            if (req == null)
             {
                 return new BadRequestObjectResult("Invalid request payload.");
             }
-
             try
             {
-                var user = await _userService.AuthenticateUserAsync(signinDto.Email, signinDto.Password);
+                var user = await _userService.AuthenticateUserAsync(req.Email, req.Password);
                 if (user == null)
                 {
                     return new UnauthorizedObjectResult(new { message = "Invalid email or password." });
@@ -50,23 +44,18 @@ namespace ABC.FoodDelivery.IdentityService.Functions
 
         [Function("Signup")]
         public async Task<IActionResult> Signup(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "user/signup")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "user/signup")] SignupDto req,
             ILogger log)
         {
             //log.LogInformation("Processing user registration...");
-
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var userDto = JsonSerializer.Deserialize<UserDto>(requestBody);
-
-            if (userDto == null)
+            if (req == null)
             {
                 return new BadRequestObjectResult("Invalid request payload.");
             }
 
-
             try
             {
-                var result = await _userService.RegisterUserAsync(userDto);
+                var result = await _userService.RegisterUserAsync(req);
                 return new OkObjectResult(result);
             }
             catch (Exception ex)

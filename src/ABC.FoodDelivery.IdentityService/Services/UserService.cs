@@ -16,7 +16,7 @@ namespace ABC.FoodDelivery.IdentityService.Services
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<UserResponse> RegisterUserAsync(UserDto userDto)
+        public async Task<UserResponse> RegisterUserAsync(SignupDto userDto)
         {
             // Check if user already exists
             var existingUser = await _userRepository.GetUserByEmailAsync(userDto.Email);
